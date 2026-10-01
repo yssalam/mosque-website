@@ -1,16 +1,9 @@
+import { z } from "zod";
+import { eventFormSchema } from "@/validations/event";
+
 export type EventStatus = "DRAFT" | "PUBLISHED";
 
-export type EventFormValues = {
-  title: string;
-  description: string;
-  imageURL: string;
-  speaker: string;
-  location: string;
-  eventDate: string;
-  startTime: string;
-  endTime: string;
-  status: EventStatus;
-};
+export type EventFormValues = z.infer<typeof eventFormSchema>;
 
 export const defaultEventValues: EventFormValues = {
   title: "",

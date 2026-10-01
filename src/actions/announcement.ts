@@ -2,9 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { announcementFormSchema, announcementSchema } from "@/validations/announcement";
+import {
+  announcementFormSchema,
+  announcementSchema,
+} from "@/validations/announcement";
 import { generateSlug } from "@/lib/slug";
 import { supabase } from "@/lib/supabase";
+import { deleteStorageFiles } from "@/lib/storage";
 
 export async function createAnnouncement(formData: FormData) {
   const values = {
@@ -96,21 +100,25 @@ export async function deleteAnnouncement(id: string) {
 
   if (!announcement) return;
 
-  const imagePath = announcement.imageURL.split(
-    "/storage/v1/object/public/articles/",
-  )[1];
+  await deleteStorageFiles([announcement.imageURL]);
 
-  // imagePath = "articles/uuid.jpg"
+  if (announcement.imageURL) {
+    const imagePath = announcement.imageURL.split(
+      "/storage/v1/object/public/articles/",
+    )[1];
 
-  if (imagePath) {
-    await supabase.storage.from("articles").remove([imagePath]);
+    // imagePath = "articles/uuid.jpg"
+
+    if (imagePath) {
+      await supabase.storage.from("articles").remove([imagePath]);
+    }
+
+    await prisma.announcement.delete({
+      where: { id },
+    });
+
+    redirect(
+      `/dashboard/announcements?deleted=${encodeURIComponent(announcement.title)}`,
+    );
   }
-
-  await prisma.announcement.delete({
-    where: { id },
-  });
-
-  redirect(
-    `/dashboard/announcements?deleted=${encodeURIComponent(announcement.title)}`,
-  );
 }

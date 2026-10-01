@@ -1,20 +1,7 @@
-export interface MosqueProfileFormValues {
-  
-  mosqueName: string;
-  description: string;
-  
-  address: string;
-  latitude?: number;
-  longitude?: number;
-  phone: string;
-  email: string;
-  mapURL: string;
+import { z } from "zod";
+import { mosqueProfileFormSchema } from "@/validations/mosque-profile";
 
-  shortHistory: string;
-  vision: string;
-  mission: string;
-  operationalHours: string;
-}
+export type MosqueProfileFormValues = z.infer<typeof mosqueProfileFormSchema>;
 
 export const defaultMosqueProfileValues: MosqueProfileFormValues = {
   mosqueName: "",
@@ -33,3 +20,20 @@ export const defaultMosqueProfileValues: MosqueProfileFormValues = {
   mission: "",
   operationalHours: "",
 };
+
+export interface MosqueProfileFormData {
+  mosqueName: string;
+  description: string;
+
+  address: string;
+  latitude?: number;
+  longitude?: number;
+  phone: string;
+  email: string;
+  mapURL: string;
+
+  shortHistory: string;
+  vision: string;
+  mission: string;
+  operationalHours: string;
+}

@@ -2,7 +2,7 @@ export interface PublicMosque {
   mosqueName: string;
   description: string;
   logoURL: string;
-  heroImageURL: string;
+  heroImageURL: string | null;
 
   address: string;
   latitude?: number;

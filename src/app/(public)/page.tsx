@@ -21,7 +21,7 @@ export default async function HomePage() {
 
   const latestArticles = await getLatestArticles(3);
   const announcements = await getLatestAnnouncements(3);
-  const events = await getPublishedEvents(3);
+  const events = await getPublishedEvents();
 
   return (
     <main>

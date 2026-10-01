@@ -39,9 +39,9 @@ export default async function EditAnnouncementPage({
         initialValues={{
           title: announcement.title,
           content: announcement.content,
-          status: announcement.status
+          status: announcement.status,
         }}
-        initialImageURL={announcement.imageURL}
+        initialImageURL={announcement.imageURL ?? undefined}
         onSubmit={updateAnnouncementWithId}
       />
     </div>

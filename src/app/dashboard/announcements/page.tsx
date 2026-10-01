@@ -96,7 +96,6 @@ export default async function AnnouncementsPage({
                   <div>
                     <p className="text-xs text-gray-500 line-clamp-1">
                       {announcement.content}
-    
                     </p>
                   </div>
                 </td>
@@ -104,7 +103,7 @@ export default async function AnnouncementsPage({
                 <td className="p-4 text-gray-600">
                   <div className="flex items-center gap-3">
                     <img
-                      src={announcement.imageURL}
+                      src={announcement.imageURL ?? undefined}
                       alt={announcement.title}
                       className="h-12 w-12 rounded-lg object-cover"
                     />

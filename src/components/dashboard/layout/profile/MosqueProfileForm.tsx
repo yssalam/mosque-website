@@ -36,7 +36,6 @@ export default function MosqueProfileForm({
     defaultValues: initialValues,
   });
 
-
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState(initialLogoURL);
 
@@ -59,7 +58,6 @@ export default function MosqueProfileForm({
     setHeroPreview(URL.createObjectURL(file));
   };
 
-
   const uploadImage = async (file: File) => {
     const uploadData = new FormData();
     uploadData.append("file", file);
@@ -71,7 +69,6 @@ export default function MosqueProfileForm({
 
     return response.json();
   };
-
 
   const submitHandler = (values: MosqueProfileFormValues) => {
     startTransition(async () => {
@@ -146,7 +143,6 @@ export default function MosqueProfileForm({
       onSubmit={handleSubmit(submitHandler)}
       className="space-y-8 rounded-3xl border bg-white p-6 shadow-sm"
     >
-
       <section className="space-y-6">
         <div>
           <h2 className="text-lg font-semibold text-emerald-700">
@@ -155,7 +151,6 @@ export default function MosqueProfileForm({
 
           <p className="text-sm text-gray-500">
             Informasi utama yang tampil di Landing Page dan Navbar.
-            
           </p>
         </div>
 

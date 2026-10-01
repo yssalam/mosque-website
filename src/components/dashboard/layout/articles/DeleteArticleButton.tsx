@@ -65,7 +65,14 @@ export default function DeleteArticleButton({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <form action={deleteAction}>
+          <form
+            action={async () => {
+              const result = await deleteArticle(id);
+              if (result && !result.success) {
+                alert(result.message);
+              }
+            }}
+          >
             <DeleteSubmitButton />
           </form>
         </AlertDialogFooter>

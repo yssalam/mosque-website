@@ -1,16 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { eventFormSchema } from "@/validations/event";
-import {
-  EventFormValues,
-  defaultEventValues,
-} from "@/types/event";
+import { EventFormValues, defaultEventValues } from "@/types/event";
 
 interface EventFormProps {
   initialValues?: EventFormValues;
@@ -28,8 +24,7 @@ export default function EventForm({
   const [pending, startTransition] = useTransition();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] =
-    useState(initialImageURL);
+  const [imagePreview, setImagePreview] = useState(initialImageURL);
 
   const {
     register,
@@ -40,9 +35,7 @@ export default function EventForm({
     defaultValues: initialValues,
   });
 
-  const handleImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
@@ -55,16 +48,10 @@ export default function EventForm({
     }
 
     // Validasi format
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-    ];
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
 
     if (!allowedTypes.includes(file.type)) {
-      toast.error(
-        "Format gambar harus JPG, PNG, atau WEBP.",
-      );
+      toast.error("Format gambar harus JPG, PNG, atau WEBP.");
       e.target.value = "";
       return;
     }
@@ -94,10 +81,7 @@ export default function EventForm({
         const uploadResult = await response.json();
 
         if (!response.ok || !uploadResult.success) {
-          toast.error(
-            uploadResult.message ||
-              "Gagal mengupload gambar.",
-          );
+          toast.error(uploadResult.message || "Gagal mengupload gambar.");
           return;
         }
 
@@ -124,9 +108,7 @@ export default function EventForm({
       if (result?.success) {
         toast.success(result.message);
       } else {
-        toast.error(
-          result?.message || "Gagal menyimpan event.",
-        );
+        toast.error(result?.message || "Gagal menyimpan event.");
       }
     });
   };
@@ -138,9 +120,7 @@ export default function EventForm({
     >
       {/* Judul */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Event Title
-        </label>
+        <label className="mb-2 block text-sm font-medium">Event Title</label>
 
         <input
           {...register("title")}
@@ -149,17 +129,13 @@ export default function EventForm({
         />
 
         {errors.title && (
-          <p className="mt-2 text-sm text-red-600">
-            {errors.title.message}
-          </p>
+          <p className="mt-2 text-sm text-red-600">{errors.title.message}</p>
         )}
       </div>
 
       {/* Deskripsi */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Description
-        </label>
+        <label className="mb-2 block text-sm font-medium">Description</label>
 
         <textarea
           {...register("description")}
@@ -177,9 +153,7 @@ export default function EventForm({
 
       {/* Date */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Date
-        </label>
+        <label className="mb-2 block text-sm font-medium">Date</label>
 
         <input
           type="date"
@@ -196,9 +170,7 @@ export default function EventForm({
 
       {/* Start Time */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Start Time
-        </label>
+        <label className="mb-2 block text-sm font-medium">Start Time</label>
 
         <input
           type="time"
@@ -215,9 +187,7 @@ export default function EventForm({
 
       {/* End Time */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          End Time
-        </label>
+        <label className="mb-2 block text-sm font-medium">End Time</label>
 
         <input
           type="time"
@@ -226,17 +196,13 @@ export default function EventForm({
         />
 
         {errors.endTime && (
-          <p className="mt-2 text-sm text-red-600">
-            {errors.endTime.message}
-          </p>
+          <p className="mt-2 text-sm text-red-600">{errors.endTime.message}</p>
         )}
       </div>
 
       {/* Speaker */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Speaker
-        </label>
+        <label className="mb-2 block text-sm font-medium">Speaker</label>
 
         <input
           type="text"
@@ -246,17 +212,13 @@ export default function EventForm({
         />
 
         {errors.speaker && (
-          <p className="mt-2 text-sm text-red-600">
-            {errors.speaker.message}
-          </p>
+          <p className="mt-2 text-sm text-red-600">{errors.speaker.message}</p>
         )}
       </div>
 
       {/* Location */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Location
-        </label>
+        <label className="mb-2 block text-sm font-medium">Location</label>
 
         <input
           type="text"
@@ -266,17 +228,13 @@ export default function EventForm({
         />
 
         {errors.location && (
-          <p className="mt-2 text-sm text-red-600">
-            {errors.location.message}
-          </p>
+          <p className="mt-2 text-sm text-red-600">{errors.location.message}</p>
         )}
       </div>
 
       {/* Image Upload */}
       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Event Image
-        </label>
+        <label className="mb-2 block text-sm font-medium">Event Image</label>
 
         <input
           type="file"
@@ -292,9 +250,7 @@ export default function EventForm({
         {/* Preview */}
         {imagePreview && (
           <div className="mt-4">
-            <p className="mb-2 text-sm text-gray-500">
-              Image Preview
-            </p>
+            <p className="mb-2 text-sm text-gray-500">Image Preview</p>
 
             <img
               src={imagePreview}
@@ -306,10 +262,8 @@ export default function EventForm({
       </div>
 
       {/* Status */}
-       <div className="text-gray-700">
-        <label className="mb-2 block text-sm font-medium">
-          Status
-        </label>
+      <div className="text-gray-700">
+        <label className="mb-2 block text-sm font-medium">Status</label>
 
         <select
           {...register("status")}
@@ -326,11 +280,7 @@ export default function EventForm({
         disabled={pending}
         className="w-full rounded-xl bg-emerald-600 py-3 font-medium text-white transition hover:bg-emerald-700 disabled:opacity-50"
       >
-        {pending
-          ? "Saving..."
-          : isEdit
-            ? "Update Event"
-            : "Save Event"}
+        {pending ? "Saving..." : isEdit ? "Update Event" : "Save Event"}
       </button>
     </form>
   );

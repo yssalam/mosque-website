@@ -59,14 +59,23 @@ export default function DeleteEventButton({
             <br />
             <br />
             Tindakan ini tidak bisa dibatalkan.
-        
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <form action={deleteAction}>
+          <form
+            action={async () => {
+              const result = await deleteEvent(id);
+
+              // Kalau berhasil, redirect() sudah memindahkan halaman.
+              // Baris ini hanya jalan kalau gagal.
+              if (result && !result.success) {
+                alert(result.message);
+              }
+            }}
+          >
             <DeleteSubmitButton />
           </form>
         </AlertDialogFooter>

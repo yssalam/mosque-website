@@ -45,7 +45,10 @@ export async function updateMosqueProfile(formData: FormData) {
 
   if (!profile) {
     await prisma.mosqueProfile.create({
-      data,
+      data: {
+        ...data,
+        logoURL: data.logoURL ?? "",
+      },
     });
   } else {
     await prisma.mosqueProfile.update({
