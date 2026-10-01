@@ -8,7 +8,7 @@ Project ini dibuat sebagai fullstack web application menggunakan Next.js, TypeSc
 
 https://mosque-website-15d5nni4s-yogas-projects-f31813f4.vercel.app/
 
-## Admin CMS
+## Admin CMS (/login | /dashboard)
 
 Email:
 admin@masjid.com
