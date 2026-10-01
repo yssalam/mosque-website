@@ -24,3 +24,12 @@ export async function getCurrentAdmin() {
 
   return admin;
 }
+
+export async function isAuthenticated(): Promise<boolean> {
+  try {
+    await getCurrentAdmin();
+    return true;
+  } catch {
+    return false;
+  }
+}

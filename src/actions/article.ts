@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { articleSchema } from "@/validations/article";
 import { generateSlug } from "@/lib/slug";
 import { deleteStorageFile, deleteStorageFiles } from "@/lib/storage";
+import { isAuthenticated } from "@/lib/session";
 
 export async function createArticle(formData: FormData) {
   const values = {
@@ -87,6 +88,9 @@ export async function updateArticle(id: string, formData: FormData) {
  * Menghapus artikel, semua gallery miliknya, dan file-nya di storage.
  */
 export async function deleteArticle(id: string) {
+  if (!(await isAuthenticated())) {
+    return { success: false, message: "Tidak diizinkan." };
+  }
   const article = await prisma.article.findUnique({
     where: { id },
     select: {

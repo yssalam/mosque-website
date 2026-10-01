@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { eventFormSchema } from "@/validations/event";
 import { generateSlug } from "@/lib/slug";
 import { deleteStorageFiles } from "@/lib/storage";
+import { isAuthenticated } from "@/lib/session";
 
 function parseEventDate(date: string) {
   return new Date(`${date}T00:00:00+07:00`);
@@ -166,6 +167,9 @@ export async function updateEvent(id: string, values: unknown) {
  * Menghapus event, semua gallery miliknya, dan file-nya di storage.
  */
 export async function deleteEvent(id: string) {
+  if (!(await isAuthenticated())) {
+    return { success: false, message: "Tidak diizinkan." };
+  }
   const event = await prisma.event.findUnique({
     where: { id },
     select: {

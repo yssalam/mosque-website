@@ -1,20 +1,22 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { v4 as uuid } from "uuid";
+import { isAuthenticated } from "@/lib/session";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-const ALLOWED_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-const ALLOWED_FOLDERS = [
-  "gallery",
-];
+const ALLOWED_FOLDERS = ["gallery"];
 
 export async function POST(req: Request) {
+  if (!(await isAuthenticated())) {
+    return NextResponse.json(
+      { success: false, message: "Tidak diizinkan." },
+      { status: 401 },
+    );
+  }
+
   try {
     const formData = await req.formData();
 

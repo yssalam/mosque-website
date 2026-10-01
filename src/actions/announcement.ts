@@ -9,6 +9,7 @@ import {
 import { generateSlug } from "@/lib/slug";
 import { supabase } from "@/lib/supabase";
 import { deleteStorageFiles } from "@/lib/storage";
+import { isAuthenticated } from "@/lib/session";
 
 export async function createAnnouncement(formData: FormData) {
   const values = {
@@ -90,6 +91,9 @@ export async function updateAnnouncement(id: string, formData: FormData) {
 }
 
 export async function deleteAnnouncement(id: string) {
+  if (!(await isAuthenticated())) {
+    return { success: false, message: "Tidak diizinkan." };
+  }
   const announcement = await prisma.announcement.findUnique({
     where: { id },
     select: {
