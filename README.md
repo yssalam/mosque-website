@@ -6,7 +6,7 @@ Project ini dibuat sebagai fullstack web application menggunakan Next.js, TypeSc
 
 # LIVE DEMO
 
-https://mosque-website-15d5nni4s-yogas-projects-f31813f4.vercel.app/
+https://mosque-website-ebon.vercel.app/
 
 ## Admin CMS (/login | /dashboard)
 
