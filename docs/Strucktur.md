@@ -10,11 +10,10 @@ cms-mesjid/
 │   └── schema.prisma
 │
 ├── src/
-│   ├── app/
+│   ├── app/(public)/
 │   ├── actions/
 │   ├── components/
 │   ├── lib/
-│   ├── hooks/
 │   ├── types/
 │   └── validations/
 │

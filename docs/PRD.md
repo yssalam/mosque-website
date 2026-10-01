@@ -18,7 +18,7 @@ Website publik akan menampilkan informasi yang dikelola melalui CMS.
 
 ## Target Users
 
-### Admin
+### Admin [✅]
 - Login ke dashboard.
 - Mengelola artikel.
 - Mengelola agenda kegiatan.
@@ -37,18 +37,18 @@ Website publik akan menampilkan informasi yang dikelola melalui CMS.
 
 ## MVP Features (Version 1)
 
-### Authentication
+### Authentication [✅]
 - Login Admin.
 - Logout Admin.
 - Protected Dashboard.
 
-### Dashboard
+### Dashboard [✅]
 - Statistik sederhana.
 - Jumlah artikel.
 - Jumlah agenda.
 - Jumlah galeri.
 
-### Article Management
+### Article Management[✅]
 - Create Article.
 - Read Article.
 - Update Article.
@@ -56,17 +56,17 @@ Website publik akan menampilkan informasi yang dikelola melalui CMS.
 - Search.
 - Pagination.
 
-### Announcement
+### Announcement[✅]
 - CRUD Pengumuman.
 
-### Event Management
+### Event Management[✅]
 - CRUD Agenda Masjid.
 
-### Gallery
+### Gallery[✅]
 - CRUD Foto.
 - Upload Thumbnail.
 
-### Mosque Profile
+### Mosque Profile[✅]
 - Nama Masjid.
 - Alamat.
 - Nomor Telepon.

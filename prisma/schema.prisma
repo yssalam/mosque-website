@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Article {
+  id        String        @id @default(cuid())
+  name      String
+  slug      String        @unique
+  desc      String
+  imageURL  String
+  status    ArticleStatus @default(DRAFT)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  galleries   Gallery[]
+
+  @@map("articles")
+}
+
+enum AnnouncementStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+
+  title       String
+  slug        String   @unique
+  content     String   @db.Text
+
+  imageURL    String?
+
+  status      AnnouncementStatus @default(ACTIVE)
+
+  publishedAt DateTime @default(now())
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("announcements")
+}
+
+
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Event {
+  id          String      @id @default(cuid())
+
+  title       String
+  slug        String      @unique
+  description String      @db.Text
+
+  imageURL    String?
+
+  speaker     String?
+  location    String?
+
+  eventDate   DateTime
+  startTime   String
+  endTime     String?
+
+  status      EventStatus @default(DRAFT)
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+   galleries   Gallery[]
+
+  @@map("events")
+}
+
+model Gallery {
+  id        String   @id @default(cuid())
+
+  imageURL  String
+  caption   String?
+
+  articleId String?
+  eventId   String?
+
+  article   Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  event     Event?   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([articleId])
+  @@index([eventId])
+
+  @@map("galleries")
+}
+
+model MosqueProfile {
+  id          String   @id @default(cuid())
+
+  
+  mosqueName  String
+  description String
+  logoURL     String
+
+  
+  address     String
+  latitude    Float?
+  longitude   Float?
+  phone       String
+  email       String
+  mapURL      String
+
+  
+  heroImageURL String?
+
+  shortHistory String? @db.Text
+
+  vision       String? @db.Text
+  mission      String? @db.Text
+
+  operationalHours String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("mosque_profile")
+}
