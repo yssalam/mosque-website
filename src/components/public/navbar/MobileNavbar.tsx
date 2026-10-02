@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
@@ -16,6 +16,19 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ menus }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+  
   const mosqueProfile = usePublicData();
 
   return (
@@ -38,7 +51,7 @@ export default function MobileMenu({ menus }: MobileMenuProps) {
 
       {/* Drawer */}
       <aside
-        className={`fixed right-0 top-0 z-[999] flex h-screen w-72 flex-col bg-[#184D3B] p-5 transition-transform duration-300 lg:hidden ${
+        className={`fixed right-0 top-0 z-[999] flex h-screen w-72 max-w-[85vw] flex-col bg-[#184D3B] p-5 transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
